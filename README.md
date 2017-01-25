@@ -1,14 +1,3 @@
-alpine-tools
-=============
-
-A base image to expose tools to services. It's based in alpine-base, adding [confd][confd] as config management and [jq][jq] as tool.
-
-##Build
-
-```
-docker build -t <repo>/alpine-tools:<version> .
-```
-
 ## Tools volume
 
 This images creates a volume ${SERVICE_VOLUME} and permits share tools with the services, avoiding coupling service with configuration.
@@ -41,29 +30,13 @@ The entrypoint set correct owner to ${SERVICE_VOLUME} volume. You must provide U
 
 This image compiles and intall confd under ${SERVICE_VOLUME}/confd, to make it super simple to get dinamic configuration for your service. 
 
-
-## Versions
-
-- `0.3.4-7` [(Dockerfile)](https://github.com/rawmind0/alpine-tools/blob/0.3.4-7/Dockerfile)
-
 ## Usage
 
-To use this image include `FROM rawmind/alpine-tools` at the top of your `Dockerfile`, and add whaever tool you need your services under /opt/tools.
+To use this image include `FROM robtimmer/alpine-tools` at the top of your `Dockerfile`, and add whaever tool you need your services under /opt/tools.
 
-Starting from `rawmind/alpine-tools` provides you with the ability to easily get dinamic configuration using confd. confd will also keep running checking for config changes, restarting your service.
+Starting from `robtimmer/alpine-tools` provides you with the ability to easily get dinamic configuration using confd. confd will also keep running checking for config changes, restarting your service.
 
 This image has to be started once as a sidekick of your service (based in alpine-monit), exporting a ${SERVICE_VOLUME} volume to it. It adds monit conf.d to start confd with a default parameters, that you can overwrite with environment variables.
 
-
-## Examples
-
-An example of using this image can be found in the [rawmind/rancher-tools][rancher-tools].
-
-An example of using this image can be found in the [rawmind/k8s-tools][k8s-tools].
-
-
 [confd]: http://www.confd.io/
 [jq]: https://github.com/stedolan/jq
-[rancher-tools]: https://github.com/rawmind0/rancher-tools
-[k8s-tools]: https://github.com/rawmind0/k8s-tools
-

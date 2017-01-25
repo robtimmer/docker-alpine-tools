@@ -1,7 +1,10 @@
-FROM rawmind/alpine-base:0.3.4-1
-MAINTAINER Raul Sanchez <rawmind@gmail.com>
+# Use base image
+FROM robtimmer/alpine-base
 
-# Set service params
+# Set maintainer
+MAINTAINER Rob Timmer <rob@robtimmer.com>
+
+# Set service environment variables
 ENV SERVICE_VOLUME=/opt/tools \
     SERVICE_ARCHIVE=/opt/tools.tgz \
     KEEP_ALIVE=0
@@ -32,9 +35,11 @@ RUN apk add --update go git gcc musl-dev make openssl-dev && \
     apk del go git gcc musl-dev make openssl-dev && \
     rm -rf /var/cache/apk/* /opt/src ${SERVICE_VOLUME}/* 
 
-# Add start script
+# Add root files to the image root
 ADD root /
 
+# Set working directory
 WORKDIR "${SERVICE_VOLUME}"
 
+# Set entrypoint
 ENTRYPOINT ["bash","/start.sh"]
