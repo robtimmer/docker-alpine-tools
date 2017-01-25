@@ -1,5 +1,5 @@
-# Use base image
-FROM robtimmer/alpine-base
+# Use base image, tag 3.4
+FROM robtimmer/alpine-base:3.4
 
 # Set maintainer
 MAINTAINER Rob Timmer <rob@robtimmer.com>
@@ -9,7 +9,7 @@ ENV SERVICE_VOLUME=/opt/tools \
     SERVICE_ARCHIVE=/opt/tools.tgz \
     KEEP_ALIVE=0
 
-# Compile and install monit and confd
+# Compile and install monit + confd
 ENV CONFD_VERSION=v0.11.0 \
     CONFD_HOME=${SERVICE_VOLUME}/confd \
     GOMAXPROCS=2 \
